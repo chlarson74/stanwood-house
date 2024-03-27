@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^(www\.)?dekelpress\.com$ [NC]
+RewriteRule ^(.*)$ https://dekelpress.com%{REQUEST_URI} [E=UPGRADE,L,R=301]
+</IfModule>
+<IfModule mod_headers.c>
+Header always set Content-Security-Policy "upgrade-insecure-requests;" env=UPGRADE
+</IfModule>
+RewriteEngine On 
+RewriteCond %{SERVER_PORT} 80
+RewriteCond %{HTTP_HOST} ^(www\.)dekelpress\.com
+RewriteRule ^(.*)$ https://www.dekelpress.com/$1 [R,L]
